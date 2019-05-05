@@ -1,0 +1,49 @@
+service: lambda-tokyo 
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: ${opt:stage, 'dev'}
+  region: ap-northeast-1
+  deploymentBucket: test-dev-lambda
+  logRetentionInDays: 30
+
+plugins:
+ - serverless-plugin-existing-s3
+
+functions:
+  test-sync-s3:
+    handler: index.handler
+    name:  ${self:provider.stage}-sync-s3
+    description:  sync tokyo s3 bucket to singapore s3 bucket
+    memorySize: 512
+    timeout: 180
+    reservedConcurrency: 1
+    # plugins:
+    #   - serverless-plugin-existing-s3
+    # package:
+    #   include:
+    #     - ./index.js
+    role: arn:aws:iam::542959630579:role/test-1
+    events:
+      - existingS3:
+          bucket: first-lambda-test-s3
+          events:
+            - s3:ObjectCreated:*
+          rules:
+            - prefix: sync-dir
+    #   - s3:
+    #       bucket: tibame-dev-static
+    #       event: s3:ObjectCreated:*
+    #       rules:
+    #         - prefix: discuss-board
+    #   - s3:
+    #       bucket: tibame-dev-media
+    #       event: s3:ObjectCreated:*
+    #       rules:
+    #         - prefix: user
+    #   - s3:
+    #       bucket: tibame-dev-media
+    #       event: s3:ObjectCreated:*
+    #       rules:
+    #         - prefix: teacher
