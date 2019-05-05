@@ -24,7 +24,7 @@ functions:
     # package:
     #   include:
     #     - ./index.js
-    role: arn:aws:iam::542959630579:role/test-1
+    role: arn:aws:iam::<id>:role/test-1
     events:
       - existingS3:
           bucket: first-lambda-test-s3
