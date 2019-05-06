@@ -32,8 +32,8 @@ exports.handler = (event, context, callback) => {
             
             const ssmParams = {
                 Names: [
-                    'TIBAME-CHINA-S3-ACCESS-KEY-ID',
-                    'TIBAME-CHINA-S3-SECRET-ACCESS-KEY'
+                    'CHINA-S3-ACCESS-KEY-ID',
+                    'CHINA-S3-SECRET-ACCESS-KEY'
                 ],
                 WithDecryption: false
             };
@@ -43,10 +43,10 @@ exports.handler = (event, context, callback) => {
                     next(err);
                 }
                 keyPair.Parameters.filter(key => {
-                    if (key.Name === 'TIBAME-CHINA-S3-ACCESS-KEY-ID') {
+                    if (key.Name === 'CHINA-S3-ACCESS-KEY-ID') {
                         s3Config.accessKeyId = key;
                     }
-                    if (key.Name === 'TIBAME-CHINA-S3-SECRET-ACCESS-KEY') {
+                    if (key.Name === 'CHINA-S3-SECRET-ACCESS-KEY') {
                         s3Config.secretAccessKey = key;
                     }
                 });
